@@ -1,0 +1,9 @@
+.typedHeading{
+    display: block;
+    height: 100px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
