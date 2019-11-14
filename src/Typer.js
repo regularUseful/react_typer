@@ -5,7 +5,7 @@ import './Typer.css'
 class Typer extends React.Component{
   
     static defaultProps = {
-      typedWords: [["h", "i"],["hello again"], ["and goodbye"]],
+      typedWords: [["E" ,"n", "t", "e", "r", " ", "a", " ", "s", "e", "n", "t", "e", "n", "c", "e"]],
     }
     
     constructor(props){
@@ -18,13 +18,20 @@ class Typer extends React.Component{
         reverse: false,
         break: false,
         breakCount: 0,
-        inputTracker: ""
+        inputTracker: "",
+        randomDisplay: "Start",
+        startDisplay: "Start",
+        randomSwitch: false,
+        intervalRunning: false
       };
       this.typeNow = this.typeNow.bind(this);
       this.typeFunc = this.typeFunc.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.randomType = this.randomType.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleRandom = this.handleRandom.bind(this);
+      this.stopInterval = this.stopInterval.bind(this);
+      this.stopRandom = this.stopRandom.bind(this);
     }
 
     handleSubmit(e){
@@ -44,6 +51,9 @@ class Typer extends React.Component{
     
     typeFunc(){
         let typedWords =  this.state.wordArr
+        if(typedWords.length === 0){
+          typedWords = this.props.typedWords
+        }
         let tempArr = typedWords[this.state.wordNum].slice(0, this.state.count + 1); 
         if(this.state.break === true && this.state.breakCount < 10){
           this.setState({
@@ -64,23 +74,64 @@ class Typer extends React.Component{
         
       }
       console.log(this.state.inputTracker)
-      //this.randomType()
+      this.state.randomSwitch && this.randomType()
     }
   
   randomType(){
-    let randomTime = Math.random() * 200;
+    let randomTime = Math.floor((Math.random() * 500) + 200);
+    console.log(randomTime)
     setTimeout(this.typeFunc, randomTime);
+  }
+
+
+  handleRandom(){
+    this.stopInterval();
+    this.setState({
+      randomSwitch: !this.state.randomSwitch,
+      randomDisplay: this.state.randomSwitch ? "Start": "Stop"
+    }, this.randomType())
   }
     
     typeNow(){
-      setInterval(this.typeFunc, 100)
+      if(!this.state.intervalRunning){
+        this.stopRandom()
+        let running = setInterval(this.typeFunc, 100)
+        this.setState({
+          intervalRunning: true,
+          myInterval: running,
+          startDisplay: "Stop"
+        })
+      }
+      else{
+        this.stopInterval()
+      }
+    }
+
+    stopInterval(){
+      clearInterval(this.state.myInterval)
+        this.setState({
+          intervalRunning: false,
+          startDisplay: "Start"
+        })
+    }
+
+    stopRandom(){
+      this.setState({
+        randomSwitch: false,
+        randomDisplay: "Start"
+      })
     }
     
     render(){
-      return(<div>
+      return(
+      <div className="container">
           <h1 className="typedHeading">{this.state.typedArr}</h1>
-          <button onClick={this.typeNow}>start</button>
+          <button onClick={this.typeNow}>{this.state.startDisplay}</button>
+          <button onClick={this.handleRandom}>{this.state.randomDisplay}</button>
           <InputForm onChange={this.handleChange} onSubmit={this.handleSubmit}/>
+          <div className="sentence-box">
+                hi
+          </div>
         </div>)
     }
   }
