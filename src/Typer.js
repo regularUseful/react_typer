@@ -132,13 +132,6 @@ class Typer extends React.Component{
             <button onClick={this.handleRandom}>{this.state.randomDisplay}</button>
           </div>
           <InputForm submitForm={this.handleSubmitForm} onChange={this.handleChange} onSubmit={this.handleSubmit}/>
-          <div className="sentence-box">
-            <ul className="sentence-list">
-            {this.state.wordArr.length !== 0 ? this.state.wordArr.map(i => {
-                  return <li>{i}</li>
-                }): <li>Your sentences go here</li>}
-            </ul>
-          </div>
         </div>)
     }
   }

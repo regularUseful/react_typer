@@ -8,7 +8,15 @@
   }
   
 
-.typedHeading{
+  .blinker{
+    visibility: visible;
+    color: white;
+    animation: blink 1s step-end infinite;
+  }
+  
+
+
+  .typedHeading{
     display: block;
     height: 100px;
     width: 100%;
@@ -16,22 +24,28 @@
     display: flex;
     align-items: flex-end;
     justify-content: center;
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
 }
 
-.sentence-box{
-    width: 50%;
-    height: 30%;
-    background: white;
-    color: black;
-    margin-top: 5px;
-    border: solid 2px #222;
-    border-radius: 20px;
-    padding: 1%;
-    overflow: hidden;
+button{
+    font-family: 'Orbitron', sans-serif;
+    padding: 5px 10px;
+    border-radius: 15px;
+    background: transparent;
+    margin: 5px 5px;
+    border: solid 2px white;
+    font-size: 1.2rem;
+    color: white;
 }
 
-.sentence-list{
-    list-style: none;
-    text-align: left;
-    
-}
+@keyframes blink{
+    from, to {
+      color: transparent;
+    }
+    50% {
+      color: white;
+    }
+  }
+  

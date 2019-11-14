@@ -6,22 +6,7 @@
   width: 100vw;
   align-items: center;
   justify-content: center;
-  background: lime;
-  color: white;
+  background-color: #9b59b6
 }
 
-.blinker{
-  visibility: visible;
-  color: white;
-  animation: blink 1s step-end infinite;
-}
-
-@keyframes blink{
-  from, to {
-    color: transparent;
-  }
-  50% {
-    color: white;
-  }
-}
 
