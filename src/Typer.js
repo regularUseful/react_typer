@@ -19,8 +19,8 @@ class Typer extends React.Component{
         break: false,
         breakCount: 0,
         inputTracker: "",
-        randomDisplay: "Start",
-        startDisplay: "Start",
+        randomDisplay: "One Finger",
+        startDisplay: "Two Hands",
         randomSwitch: false,
         intervalRunning: false
       };
@@ -74,7 +74,7 @@ class Typer extends React.Component{
         })))
         
       }
-      console.log(this.state.inputTracker)
+      console.log(document.getElementById("heading").style.width)
       this.state.randomSwitch && this.randomType()
     }
   
@@ -89,7 +89,7 @@ class Typer extends React.Component{
     this.stopInterval();
     this.setState({
       randomSwitch: !this.state.randomSwitch,
-      randomDisplay: this.state.randomSwitch ? "Start": "Stop"
+      randomDisplay: this.state.randomSwitch ? "One Finger": "Stop"
     }, this.randomType())
   }
     
@@ -112,26 +112,30 @@ class Typer extends React.Component{
       clearInterval(this.state.myInterval)
         this.setState({
           intervalRunning: false,
-          startDisplay: "Start"
+          startDisplay: "Two Hands"
         })
     }
 
     stopRandom(){
       this.setState({
         randomSwitch: false,
-        randomDisplay: "Start"
+        randomDisplay: "One Finger"
       })
     }
     
     render(){
       return(
       <div className="container">
-          <h1 className="typedHeading">{this.state.typedArr}<span className="blinker">|</span></h1>
-          <div>
+        <div className="right-container">
+          <h1 id="heading" className="typedHeading">{this.state.typedArr}<span className="blinker">|</span></h1>
+        </div>
+        <div className="left-container">
+          <div className="button-container">
             <button onClick={this.typeNow}>{this.state.startDisplay}</button>
             <button onClick={this.handleRandom}>{this.state.randomDisplay}</button>
           </div>
           <InputForm submitForm={this.handleSubmitForm} onChange={this.handleChange} onSubmit={this.handleSubmit}/>
+        </div>
         </div>)
     }
   }

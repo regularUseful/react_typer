@@ -13,6 +13,7 @@ input{
     color: white;
     border: solid 2px white;
     font-family: 'Orbitron', sans-serif;
+    width: 130%;
 }
 
 input::placeholder{
