@@ -10,4 +10,18 @@
   color: white;
 }
 
+.blinker{
+  visibility: visible;
+  color: white;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink{
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: white;
+  }
+}
 

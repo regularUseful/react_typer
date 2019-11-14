@@ -1,3 +1,13 @@
+.container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+
 .typedHeading{
     display: block;
     height: 100px;
@@ -9,9 +19,19 @@
 }
 
 .sentence-box{
-    height: 50%;
     width: 50%;
+    height: 30%;
     background: white;
     color: black;
-    margin-top: 20px;
+    margin-top: 5px;
+    border: solid 2px #222;
+    border-radius: 20px;
+    padding: 1%;
+    overflow: hidden;
+}
+
+.sentence-list{
+    list-style: none;
+    text-align: left;
+    
 }

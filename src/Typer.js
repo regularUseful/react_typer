@@ -26,28 +26,29 @@ class Typer extends React.Component{
       };
       this.typeNow = this.typeNow.bind(this);
       this.typeFunc = this.typeFunc.bind(this);
-      this.handleChange = this.handleChange.bind(this);
       this.randomType = this.randomType.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleSubmitForm = this.handleSubmitForm.bind(this);
       this.handleRandom = this.handleRandom.bind(this);
       this.stopInterval = this.stopInterval.bind(this);
       this.stopRandom = this.stopRandom.bind(this);
+      this.handleChange = this.handleChange.bind(this);
     }
 
-    handleSubmit(e){
-        e.preventDefault();
-        let tempWordArr = this.state.inputTracker.toString().split("")
+    handleSubmitForm(value){
+        let tempWordArr = value.toString().split("")
         this.setState({
-            wordArr: [...this.state.wordArr, tempWordArr]
+            wordArr: [...this.state.wordArr, tempWordArr],
         })
-    }
-  
-    handleChange(e){
-      this.setState({
-        inputTracker: e.target.value
-      })
-      console.log(this.state.inputTracker)
-    }
+        console.log(value)
+      }
+
+      handleChange(e){
+        this.setState({
+          inputTracker: e.target.value
+        })
+        console.log(this.state.inputTracker)
+      }
+
     
     typeFunc(){
         let typedWords =  this.state.wordArr
@@ -125,12 +126,18 @@ class Typer extends React.Component{
     render(){
       return(
       <div className="container">
-          <h1 className="typedHeading">{this.state.typedArr}</h1>
-          <button onClick={this.typeNow}>{this.state.startDisplay}</button>
-          <button onClick={this.handleRandom}>{this.state.randomDisplay}</button>
-          <InputForm onChange={this.handleChange} onSubmit={this.handleSubmit}/>
+          <h1 className="typedHeading">{this.state.typedArr}<span className="blinker">|</span></h1>
+          <div>
+            <button onClick={this.typeNow}>{this.state.startDisplay}</button>
+            <button onClick={this.handleRandom}>{this.state.randomDisplay}</button>
+          </div>
+          <InputForm submitForm={this.handleSubmitForm} onChange={this.handleChange} onSubmit={this.handleSubmit}/>
           <div className="sentence-box">
-                hi
+            <ul className="sentence-list">
+            {this.state.wordArr.length !== 0 ? this.state.wordArr.map(i => {
+                  return <li>{i}</li>
+                }): <li>Your sentences go here</li>}
+            </ul>
           </div>
         </div>)
     }
