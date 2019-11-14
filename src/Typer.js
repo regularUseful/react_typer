@@ -1,15 +1,17 @@
 import React from 'react';
+import InputForm from './InputForm'
 import './Typer.css'
 
 class Typer extends React.Component{
   
     static defaultProps = {
-      typedWords: [["h", "i", " ", "W", "o", "r", "l", "d"],["y","o"], ["p","o", "p", "o"]],
+      typedWords: [["h", "i"],["hello again"], ["and goodbye"]],
     }
     
     constructor(props){
       super(props);
       this.state = { 
+        wordArr: [],
         typedArr: [],
         count: 0,
         wordNum: 0,
@@ -22,6 +24,15 @@ class Typer extends React.Component{
       this.typeFunc = this.typeFunc.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.randomType = this.randomType.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(e){
+        e.preventDefault();
+        let tempWordArr = this.state.inputTracker.toString().split("")
+        this.setState({
+            wordArr: [...this.state.wordArr, tempWordArr]
+        })
     }
   
     handleChange(e){
@@ -32,10 +43,9 @@ class Typer extends React.Component{
     }
     
     typeFunc(){
-        let typedWords =  this.props.typedWords
+        let typedWords =  this.state.wordArr
         let tempArr = typedWords[this.state.wordNum].slice(0, this.state.count + 1); 
         if(this.state.break === true && this.state.breakCount < 10){
-          console.log("break")
           this.setState({
             breakCount: this.state.breakCount + 1
           })
@@ -53,8 +63,7 @@ class Typer extends React.Component{
         })))
         
       }
-      console.log(typedWords.length)
-      console.log(this.state.wordNum)
+      console.log(this.state.inputTracker)
       //this.randomType()
     }
   
@@ -71,6 +80,7 @@ class Typer extends React.Component{
       return(<div>
           <h1 className="typedHeading">{this.state.typedArr}</h1>
           <button onClick={this.typeNow}>start</button>
+          <InputForm onChange={this.handleChange} onSubmit={this.handleSubmit}/>
         </div>)
     }
   }
